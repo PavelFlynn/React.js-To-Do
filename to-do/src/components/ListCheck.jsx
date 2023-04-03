@@ -1,8 +1,12 @@
-import styled from '@emotion/styled';
-import { Button } from '@mui/material';
-import { AutoFixHighOutlined } from '@mui/icons-material';
+import { Button, IconButton } from '@mui/material';
+import { AutoFixHighOutlined, VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
+import { useMemo } from 'react';
+import useToggle from '../hooks/useToggle';
 
 export default function ListCheck(props) {
+
+    // Using and set custom Hooks
+    const [setFeatureOne, setSetFeatureOne] = useToggle();
 
     // Check all items as completed
     function checkAllItems() {
@@ -19,13 +23,25 @@ export default function ListCheck(props) {
         const remaining = props.items.filter(item => item.isCompleted === false);
         return remaining.length;
     }
+    // Runs only when Items change [this helps for slow components]
+    const remaining = useMemo(itemsRemaining, [props.items]);
 
     return (
         <>
         {props.items.length > 0 ? (
         <div className='relative my-1 py-2 border-t border-solid border-slate-300'>
             <div className='relative flex justify-between items-center my-2'>
+
                 <div>
+                    <IconButton onClick={setSetFeatureOne} >
+                        {setFeatureOne ? (
+                        <VisibilityOffOutlined sx={{ fontSize: '20px', marginRight: '5px' }} />
+                        ) : (
+                        <VisibilityOutlined sx={{ fontSize: '20px', marginRight: '5px' }} />
+                        )}
+                    </IconButton>
+
+                    {setFeatureOne && (
                     <Button 
                         onClick={checkAllItems}
                         variant='outlined' 
@@ -39,14 +55,18 @@ export default function ListCheck(props) {
                     >
                         Check All
                     </Button>
+                    )}
+
                 </div>
+
                 <div>
-                    {itemsRemaining() > 0 ? (
-                    <p className='text-sm text-slate-500'>{itemsRemaining()} {(itemsRemaining() > 1) ? 'items' : 'item'} remaining</p>
+                    {remaining > 0 ? (
+                    <p className='text-sm text-slate-500'>{remaining} {(remaining > 1) ? 'items' : 'item'} remaining</p>
                     ) : (
                     <p className='text-sm text-slate-500'>All tasks Completed!</p>
                     )}
                 </div>
+
             </div>
         </div>
         

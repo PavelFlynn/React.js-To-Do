@@ -1,5 +1,6 @@
 export { default as Layout } from './Layout';
 export { default as Header } from './Header';
+export { default as UserInfo } from './UserInfo';
 export { default as Input } from './Input';
 export { default as ListItem } from './ListItem';
 export { default as ListCheck } from './ListCheck';

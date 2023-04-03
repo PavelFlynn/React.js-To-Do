@@ -24,7 +24,8 @@ export default function Input(props) {
             {
                 id: idTodo,
                 title: inputValue,
-                isCompleted: false
+                isCompleted: false,
+                isEdited: false
             }
         ]);
 

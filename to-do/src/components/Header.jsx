@@ -55,7 +55,7 @@ export default function Header(props) {
         <div className='relative my-2 mb-5 py-1'>
             <div className='relative flex justify-between items-center'>
                 <div>
-                    <h2 className='text-3xl font-semibold text-slate-800'>{props.label}</h2>
+                    <h2 className='text-3xl font-semibold text-slate-800'>{props.username} {props.label}</h2>
                 </div>
                 {/*
                 <div>
