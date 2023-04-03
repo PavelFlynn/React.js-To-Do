@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Header, UserInfo, Input, ListItem, ListCheck, ListControls } from './';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Layout() {
 
-    const [name, setName] = useState('');
+    const [name, setName] = useLocalStorage('name', '');
     
     const [todos, setTodos] = useState([
         {
@@ -39,11 +40,15 @@ export default function Layout() {
                 <Header label='Welcome!' />
                 <UserInfo username={name} setUserName={setName} />
 
+                {JSON.parse(localStorage.getItem('name')) !== '' && (
+                <>
                 <Header label='To Do App' username={name} />
                 <Input items={todos} setItems={setTodos} />
                 <ListItem items={todos} setItems={setTodos} itemFilter={filter} itemFilterItems={filterItems} />
                 <ListCheck items={todos} setItems={setTodos} />
                 <ListControls items={todos} setItems={setTodos} itemFilter={filter} setItemFilter={setFilter} />
+                </>
+                )}
 
             </div>
         </div>
