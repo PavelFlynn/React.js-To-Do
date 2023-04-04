@@ -40,15 +40,11 @@ export default function Layout() {
                 <Header label='Welcome!' />
                 <UserInfo username={name} setUserName={setName} />
 
-                {JSON.parse(localStorage.getItem('name')) !== '' && (
-                <>
                 <Header label='To Do App' username={name} />
                 <Input items={todos} setItems={setTodos} />
                 <ListItem items={todos} setItems={setTodos} itemFilter={filter} itemFilterItems={filterItems} />
                 <ListCheck items={todos} setItems={setTodos} />
                 <ListControls items={todos} setItems={setTodos} itemFilter={filter} setItemFilter={setFilter} />
-                </>
-                )}
 
             </div>
         </div>

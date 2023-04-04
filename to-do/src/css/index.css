@@ -3,15 +3,44 @@
 @tailwind utilities;
 
 :root {
-    @apply h-screen bg-white
+    @apply h-screen bg-white;
 }
 
 body {
-    @apply h-screen bg-slate-200
+    @apply h-screen bg-slate-200;
 }
 
-/*
-@layer components {
+.slide-button-enter {
+    @apply opacity-0 translate-x-6;
 }
-*/
+
+.slide-button-enter-active {
+    @apply opacity-100 translate-x-0 transition-all duration-300;
+}
+
+.slide-button-exit {
+    @apply opacity-100 translate-x-0;
+}
+
+.slide-button-exit-active {
+    @apply opacity-0 translate-x-6 transition-all duration-300;
+}
+
+/* Slide Top */
+.slide-top-enter {
+    @apply opacity-0 -translate-y-6;
+}
+
+.slide-top-enter-active {
+    @apply opacity-100 translate-y-0 transition-all duration-300;
+}
+
+.slide-top-exit {
+    @apply opacity-100 translate-y-0;
+}
+
+.slide-top-exit-active {
+    @apply opacity-0 -translate-y-6 transition-all duration-300;
+}
+
 

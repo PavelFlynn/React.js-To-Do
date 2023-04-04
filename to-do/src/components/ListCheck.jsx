@@ -1,9 +1,13 @@
+import { useMemo, useRef } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { Button, IconButton } from '@mui/material';
 import { AutoFixHighOutlined, VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
-import { useMemo } from 'react';
 import useToggle from '../hooks/useToggle';
 
 export default function ListCheck(props) {
+
+    // To manage specific DOM node for CSSTransition component
+    const animEl = useRef(null);
 
     // Using and set custom Hooks
     const [setFeatureOne, setSetFeatureOne] = useToggle();
@@ -32,30 +36,41 @@ export default function ListCheck(props) {
         <div className='relative my-1 py-2 border-t border-solid border-slate-300'>
             <div className='relative flex justify-between items-center my-2'>
 
-                <div>
-                    <IconButton onClick={setSetFeatureOne} >
-                        {setFeatureOne ? (
-                        <VisibilityOffOutlined sx={{ fontSize: '20px', marginRight: '5px' }} />
-                        ) : (
-                        <VisibilityOutlined sx={{ fontSize: '20px', marginRight: '5px' }} />
-                        )}
-                    </IconButton>
+                <div className='relative flex justify-start, items-center'>
 
-                    {setFeatureOne && (
-                    <Button 
-                        onClick={checkAllItems}
-                        variant='outlined' 
-                        size='small'
-                        sx={{ 
-                            color: 'rgb(100 116 139)',
-                            textTransform: 'capitalize',
-                            borderRadius: '8px',
-                            border: '1px solid rgb(148 163 184)'
-                        }}
+                    <div>
+                        <IconButton onClick={setSetFeatureOne} >
+                            {setFeatureOne ? (
+                            <VisibilityOffOutlined sx={{ fontSize: '20px', marginRight: '5px' }} />
+                            ) : (
+                            <VisibilityOutlined sx={{ fontSize: '20px', marginRight: '5px' }} />
+                            )}
+                        </IconButton>
+                    </div>
+
+                    <CSSTransition
+                        in={setFeatureOne}
+                        nodeRef={animEl}
+                        timeout={300}
+                        classNames='slide-button'
+                        unmountOnExit
                     >
-                        Check All
-                    </Button>
-                    )}
+                    <div ref={animEl}>
+                        <Button 
+                            onClick={checkAllItems}
+                            variant='outlined' 
+                            size='small'
+                            sx={{ 
+                                color: 'rgb(100 116 139)',
+                                textTransform: 'capitalize',
+                                borderRadius: '8px',
+                                border: '1px solid rgb(148 163 184)'
+                            }}
+                        >
+                            Check All
+                        </Button>
+                    </div>
+                    </CSSTransition>
 
                 </div>
 
