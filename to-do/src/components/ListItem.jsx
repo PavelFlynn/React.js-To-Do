@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Checkbox, TextField } from '@mui/material';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 export default function ListItem(props) {
+
+    // To manage specific DOM node for CSSTransition component
+    const animEl = useRef(null);
 
     // Checkbox for Completed Item
     function checkCompleteItem(id) {
@@ -72,8 +76,16 @@ export default function ListItem(props) {
     return (
         <div className='relative my-4'>
 
+            <TransitionGroup component={null}>
             {props.itemFilterItems(props.itemFilter).map(item => (
-            <div className='relative flex justify-between items-center my-2' key={item.id}>
+
+            <CSSTransition
+                key={item.id}
+                nodeRef={animEl}
+                classNames='slide-top'
+                timeout={300}
+            >
+            <div className='relative flex justify-between items-center my-2' ref={animEl}>
 
                 <div className='relative flex-grow-0 flex-shrink basis-11 text-cente'>
                     <Checkbox onChange={() => checkCompleteItem(item.id)} />
@@ -127,7 +139,10 @@ export default function ListItem(props) {
                 </div>
                 
             </div>
+            </CSSTransition>
+
             ))}
+            </TransitionGroup>
 
         </div>
     )

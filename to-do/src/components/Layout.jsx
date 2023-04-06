@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Header, UserInfo, Input, ListItem, ListCheck, ListControls } from './';
 import useLocalStorage from '../hooks/useLocalStorage';
 
